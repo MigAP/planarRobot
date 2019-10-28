@@ -1,0 +1,46 @@
+%%%% Path planning trajectory example 
+
+% Input Data
+pointH = [20 20]; % max point of the grid
+pointL = [-3 -3]; % min point of the grid  
+N=1; % number of points considered for each axis
+deltaH=1;
+deltaV=1;
+q=39;% number of obstacles
+r=1; % radius of the obstacles
+l = [ 10 7 7 7 ]; % values of the links l_i 
+Cf = [5.9;  8.0; 0  ;  11.7; 6  ;  15.2; 13 ;  16]; % initial feasible configuration 
+goal = [17,6]; 
+ub = [pointH pointH pointH];
+lb = [pointL pointL pointL]; 
+
+%printRobot(Cf); 
+
+% Optimization
+
+%{
+H = [13;17]; % Coordinates of the end-point
+             % Possible next adjacent configuration 
+f = @(X) objFunc(X,H,Cf); 
+gFunc = @(X) equal(X,H,l); % equality constraint  
+h = @(X) inequality(X,H,Cf,1); % positive constraint 
+X0 = Cf(1:end-2); % initial feasible configuration 
+
+[y, obj, info, iter, nf, lambda]  = sqp(X0, f,gFunc, [], lb,ub);   
+nbIter = 100; % number of iterations allowed 
+tol = 1e-12; % tolerance of the stopping criteria 
+[x, obj, info, iter]  = sqp(X0, f,gFunc,h, lb,ub,nbIter,tol)    
+
+%figure(2);
+%printRobot([x;H]); 
+%}
+
+
+% Map generation 
+%% DEbug: 
+map = mapGeneration(pointH, pointL, deltaH, deltaV); 
+configPos = findPoint([5 5], map)
+[adjConfig, map] = exploreAdj(configPos, map, pointH, pointL, []);  
+
+configPos = findPoint([5 6], map)
+[adjConfig, map] = exploreAdj(configPos, map, pointH, pointL, adjConfig);  
