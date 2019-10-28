@@ -23,6 +23,8 @@ function map = mapGeneration(pointH, pointL,deltaH, deltaV)
     map(i+1).pred = []; % predecesors positions, at max 2 
     map(i+1).exp = 0; % to know if the position has been explored 
     map(i+1).costs = []; % for dijkstra algorithm 
+    map(i+1).distance =-1 ; % for dijkstra algorithm 
+    map(i+1).distNode =[] ; % smallest distance predecessor  
     k = k+deltaH; 
   endfor
 endfunction

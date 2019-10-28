@@ -1,5 +1,6 @@
 %%%% Path planning trajectory example 
-
+addpath("./optimization");
+addpath("./dijkstra");
 % Input Data
 pointH = [20 20]; % max point of the grid
 pointL = [0 0]; % min point of the grid  
@@ -41,5 +42,15 @@ config = calculateConfiguration(Cf, H);
 
 map = mapGeneration(pointH, pointL, deltaH, deltaV); % generates discretized map 
 map = createAllConfig(map, pointF, pointH, pointL, Cf); % creates all the adj configuration relations  
+tic 
 map = mapExpansion(map, findPoint(pointF, map), Cf); % calculates the configurations and the costs for all the nodes  
+toc 
+
+tic 
+[path, map] = dijkstra(pointF, [18 5], map);
+toc 
+configs = getConfigs(path, map); 
+
+
+
 
