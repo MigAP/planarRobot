@@ -1,16 +1,12 @@
 %% Dijkstra algorithm implementation
 %% In order to find the shortes path
 
-function [route,map] = dijkstra(startCoord, goalCoord, map)
+function [path,map] = dijkstra(startCoord, goalCoord, map)
   [map, startPos] = initDijkstra(map, startCoord);  
   currentNode = nextNode(map);  %searchs for the minimum distance node  
   currentNodePos = findPoint(currentNode.coord, map);
   map(currentNodePos).exp = 1; % mark the node as explored 
   map = updateDistances(currentNode, map);
-
-
-isequal(currentNode.coord,goalCoord)
-
 
   while !isequal(currentNode.coord,goalCoord)
     currentNode = nextNode(map); %searchs for the minimum distance node  
@@ -30,5 +26,4 @@ isequal(currentNode.coord,goalCoord)
     path = [path; currentNode.distNode];
   endwhile
   
-  route = path;  
 endfunction

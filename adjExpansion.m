@@ -1,6 +1,9 @@
 %% Takes a node and investigates its adjacents nodes
+%% starting from the initial node, used to :
+%% - Calculate the configurations
+%% - Calculate the costs of each node
 
-function [map, toExplNodes] = adjExpansion(map,initialNodePos, toExplNodes)
+function [map, toExplNodes] = adjExpansion(map,initialNodePos, toExplNodes, obstacles)
   % If the position has been explored
   % the function returns 
   if map(initialNodePos).exp == 1
@@ -24,7 +27,7 @@ function [map, toExplNodes] = adjExpansion(map,initialNodePos, toExplNodes)
   for i = 1:size(initialNode.adj,1)
     adjNodeCoord = initialNode.adj(i,:);  
     adjNodePos = findPoint(adjNodeCoord, map); % get Node position 
-    config = calculateConfiguration(initConfig, adjNodeCoord'); % configuration calculation 
+    config = calculateConfiguration(initConfig, adjNodeCoord', obstacles); % configuration calculation 
     map(adjNodePos).ownConfigs = [map(adjNodePos).ownConfigs config]; 
     map(initialNodePos).configs = [map(initialNodePos).configs config]; % add configuration to the node 
     map(initialNodePos).costs = [map(initialNodePos).costs calculateWeight(config, initConfig)]; % add configuration to the node 

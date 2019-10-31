@@ -1,9 +1,11 @@
 %% print all of the configurations
 
-function  printConfigs(configs)
+function  printConfigs(configs, obstacles)
   for config = configs
     printRobot(config);
-    pause(0.5);
+    printObstacles(obstacles); 
+    %pause(0.5);
+    pause;
   endfor
   
 endfunction
