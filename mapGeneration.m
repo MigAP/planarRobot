@@ -5,14 +5,16 @@ function map = mapGeneration(pointH, pointL,deltaH, deltaV)
   xL = pointL(1);
   yL = pointL(2); 
 
-  nbPoints = (xH-xL+1)*(yH-yL+1); 
+  nbPointsH = int32 ( (xH-xL)/deltaH+1);
+  nbPointsV = int32 ( (yH-yL)/deltaV+1);
+  nbPoints =nbPointsH* nbPointsV; 
 
   %map = zeros(1,2,nbPoints);
   j=0;
   k=0; 
   for i=0:nbPoints-1
     if yL+k*deltaH > yH
-      j = j+deltaH; 
+      j = j+1; 
       k = 0; 
     endif
     %map(:,:,i+1) = [xL+j*deltaH yL+k*deltaV];
@@ -25,6 +27,6 @@ function map = mapGeneration(pointH, pointL,deltaH, deltaV)
     map(i+1).costs = []; % for dijkstra algorithm 
     map(i+1).distance =-1 ; % for dijkstra algorithm 
     map(i+1).distNode =[] ; % smallest distance predecessor  
-    k = k+deltaH; 
+    k = k+1; 
   endfor
 endfunction

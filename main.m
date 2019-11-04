@@ -6,7 +6,7 @@ addpath("./print");
 
 % Input Data
 pointH = [20 20]; % max point of the grid
-pointL = [0 0]; % min point of the grid  
+pointL = [-3 -3]; % min point of the grid  
 pointF = [13 16]; % initial feasible end effector point 
 N=1; % number of points per axis in order to calculate the deltas 
 global deltaH=1;
@@ -20,9 +20,10 @@ global lb = [pointL pointL pointL];
 
 
 %Obstacles : x, y and radius 
-global obstacles = [[6 2 1];
-	     [15 8 2];
+obstacles = [[6 2 0.5];
+	     [13 9 2];
 	     [16 18 1]]; 
+%obstacles = []; 
 %printRobot(Cf); 
 %printObstacles(obstacles); 
 
@@ -35,9 +36,12 @@ H = [13;17]; % Coordinates of the end-point
 %printObstacles(obstacles); 
 
 % Main program
-
+disp("Map generation..."); 
+tic; 
 map = mapGeneration(pointH, pointL, deltaH, deltaV); % generates discretized map 
 map = createAllConfig(map, pointF, pointH, pointL, Cf); % creates all the adj configuration relations  
+toc; 
+
 
 disp("Calculating all the robot configurations..."); 
 tic 
