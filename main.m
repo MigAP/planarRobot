@@ -20,9 +20,14 @@ global lb = [pointL pointL pointL];
 
 
 %Obstacles : x, y and radius 
-obstacles = [[14 10 1];
-	     [12 10 1];
-	     [13 10 1]]; 
+obstacles = [[12 10 1];
+	     [13 10 1];
+	     [14 10 1]; 
+	     [15 10 1]; 
+	     [16 10 1]; 
+	     [17 10 1]; 
+	     [18 10 1]; 
+	     [19 10 1]]; 
 %obstacles = []; 
 %printRobot(Cf); 
 %printObstacles(obstacles); 
@@ -36,7 +41,6 @@ H = [13;17]; % Coordinates of the end-point
 %printObstacles(obstacles); 
 
 % Main program
-
 disp("Map generation..."); 
 tic; 
 map = mapGeneration(pointH, pointL, deltaH, deltaV); % generates discretized map 
@@ -48,8 +52,8 @@ disp("Calculating all the robot configurations...");
 tic 
 map = mapExpansion(map, findPoint(pointF, map), Cf, obstacles); % calculates the configurations and the costs for all the nodes  
 toc 
-save test2_1_1.mat map; %saves the map 
-save obstacles2_1_1.mat obstacles; %saves the map 
+save test3_1_1.mat map; %saves the map 
+save obstacles3_1_1.mat obstacles; %saves the map 
 
 disp("Finding the best path..."); 
 tic 
@@ -59,4 +63,4 @@ configs = getConfigs(path, map);
 printConfigs(configs, obstacles); 
 
 joints = getJointsCoord(configs); % get the joints angles 
-save joints2_1_1.mat joints ; %saves the map 
+save joints3_1_1.mat joints ; %saves the map 
