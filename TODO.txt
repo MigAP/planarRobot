@@ -1,0 +1,4 @@
+
+- use combinations of more small obstacles
+- for the optimization problem, the end effector is not taken into account 
+- use the delta in explorAdj

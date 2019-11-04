@@ -57,3 +57,6 @@ tic
 toc 
 configs = getConfigs(path, map); 
 printConfigs(configs, obstacles); 
+
+joints = getJointsCoord(configs); % get the joints angles 
+save joints2_1_1.mat joints ; %saves the map 
