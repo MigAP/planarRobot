@@ -1,0 +1,10 @@
+# Created by Octave 4.2.2, Mon Nov 04 13:02:48 2019 CET <migap@migap-Lenovo-B50-30>
+# name: obstacles
+# type: matrix
+# rows: 3
+# columns: 3
+ 14 10 1
+ 12 10 1
+ 13 10 1
+
+

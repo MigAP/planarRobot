@@ -7,7 +7,7 @@ addpath("./print");
 % Input Data
 pointH = [20 20]; % max point of the grid
 pointL = [-3 -3]; % min point of the grid  
-pointF = [13 16]; % initial feasible end effector point 
+pointF = [15 20]; % initial feasible end effector point 
 N=1; % number of points per axis in order to calculate the deltas 
 global deltaH=1;
 global deltaV=1;
@@ -20,9 +20,9 @@ global lb = [pointL pointL pointL];
 
 
 %Obstacles : x, y and radius 
-obstacles = [[6 2 0.5];
-	     [13 9 2];
-	     [16 18 1]]; 
+obstacles = [[14 10 1];
+	     [12 10 1];
+	     [13 10 1]]; 
 %obstacles = []; 
 %printRobot(Cf); 
 %printObstacles(obstacles); 
@@ -36,10 +36,11 @@ H = [13;17]; % Coordinates of the end-point
 %printObstacles(obstacles); 
 
 % Main program
+
 disp("Map generation..."); 
 tic; 
 map = mapGeneration(pointH, pointL, deltaH, deltaV); % generates discretized map 
-map = createAllConfig(map, pointF, pointH, pointL, Cf); % creates all the adj configuration relations  
+map = createAllConfig(map, pointF, pointH, pointL, Cf, obstacles); % creates all the adj configuration relations  
 toc; 
 
 
@@ -47,6 +48,8 @@ disp("Calculating all the robot configurations...");
 tic 
 map = mapExpansion(map, findPoint(pointF, map), Cf, obstacles); % calculates the configurations and the costs for all the nodes  
 toc 
+save test2_1_1.mat map; %saves the map 
+save obstacles2_1_1.mat obstacles; %saves the map 
 
 disp("Finding the best path..."); 
 tic 

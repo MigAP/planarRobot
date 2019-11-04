@@ -1,6 +1,6 @@
 % Explore all the adjacents configurations 
 % from an initial configuration of the end effector  
-function [adjConfigurations, map] = exploreAdj(configPos, map, pointH, pointL, adjConfigurations)
+function [adjConfigurations, map] = exploreAdj(configPos, map, pointH, pointL, adjConfigurations, obstacles)
 
   % If the position has been explored
   % the function returns 
@@ -20,7 +20,7 @@ function [adjConfigurations, map] = exploreAdj(configPos, map, pointH, pointL, a
 
   if(yF+1 <= yH)
     c1 = findPoint([xF yF+1],map); % first adjacent configuration
-    if canBeAdj(c1, map)
+    if canBeAdj(c1, map, obstacles)
       c1Point = map(c1); 
       map(configPos).adj = [map(configPos).adj; c1Point.coord];% add adj
       c1Point.pred = [c1Point.pred; map(configPos).coord]; % update pred
@@ -31,7 +31,7 @@ function [adjConfigurations, map] = exploreAdj(configPos, map, pointH, pointL, a
 
   if(xF-1 >= xL)
     c2 = findPoint([xF-1 yF],map); % first adjacent configuration
-    if canBeAdj(c2, map)
+    if canBeAdj(c2, map, obstacles)
       c2Point = map(c2); 
       map(configPos).adj = [map(configPos).adj; c2Point.coord]; % add adj
       c2Point.pred = [c2Point.pred; map(configPos).coord]; % update pred
@@ -43,7 +43,7 @@ function [adjConfigurations, map] = exploreAdj(configPos, map, pointH, pointL, a
 
   if(yF-1 >= yL)
     c3 = findPoint([xF yF-1],map); % first adjacent configuration
-    if canBeAdj(c3, map)
+    if canBeAdj(c3, map, obstacles)
       c3Point = map(c3); 
       map(configPos).adj = [map(configPos).adj; c3Point.coord]; % add adj
       c3Point.pred = [c3Point.pred; map(configPos).coord]; % update pred
@@ -54,7 +54,7 @@ function [adjConfigurations, map] = exploreAdj(configPos, map, pointH, pointL, a
 
   if(xF+1 <= xH)
     c4 = findPoint([xF+1 yF],map); %map(first adjacent configuration
-    if canBeAdj(c4, map)
+    if canBeAdj(c4, map, obstacles)
       c4Point = map(c4); 
       map(configPos).adj = [map(configPos).adj; c4Point.coord]; % add adj
       c4Point.pred = [c4Point.pred; map(configPos).coord]; % update pred
